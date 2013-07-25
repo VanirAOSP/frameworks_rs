@@ -39,6 +39,14 @@ LOCAL_MODULE:= libRScpp
 
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_CFLAGS := $(call-cc-cpp-option,-Qunused-arguments)
+
+intermediates := $(call intermediates-dir-for,STATIC_LIBRARIES,libRS,TARGET,)
+librs_generated_headers := \
+    $(intermediates)/rsgApiStructs.h \
+    $(intermediates)/rsgApiFuncDecl.h
+LOCAL_GENERATED_SOURCES := $(librs_generated_headers)
+
 LOCAL_C_INCLUDES += frameworks/rs
 LOCAL_C_INCLUDES += external/stlport/stlport bionic/ bionic/libstdc++/include
 LOCAL_C_INCLUDES += $(intermediates)
