@@ -63,7 +63,7 @@ static inline uint4 convert_uint4(uchar4 i) {
 }
 
 static inline int4 convert_int4(float4 i) {
-    int4 f4 = {i.x, i.y, i.z, i.w};
+    int4 f4 = {static_cast<int>(i.x), static_cast<int>(i.y), static_cast<int>(i.z), static_cast<int>(i.w)};
     return f4;
 }
 
@@ -78,7 +78,7 @@ static inline float4 convert_float4(uchar4 i) {
 }
 
 static inline float4 convert_float4(int4 i) {
-    float4 f4 = {i.x, i.y, i.z, i.w};
+    float4 f4 = {static_cast<float>(i.x), static_cast<float>(i.y), static_cast<float>(i.z), static_cast<float>(i.w)};
     return f4;
 }
 
