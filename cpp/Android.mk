@@ -24,6 +24,8 @@ local_cflags_for_rs_cpp += -DRS_VERSION=$(RS_VERSION)
 
 LOCAL_CFLAGS := $(call-cc-cpp-option,-Qunused-arguments)
 LOCAL_SRC_FILES := $(rs_cpp_SRC_FILES)
+LOCAL_CFLAGS := $(call-cc-cpp-option,-Qunused-arguments)
+LOCAL_CFLAGS += $(local_cflags_for_rs_cpp)
 
 LOCAL_CFLAGS += $(local_cflags_for_rs_cpp)
 
@@ -38,8 +40,6 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_MODULE:= libRScpp
 
 LOCAL_MODULE_TAGS := optional
-
-LOCAL_CFLAGS := $(call-cc-cpp-option,-Qunused-arguments)
 
 intermediates := $(call intermediates-dir-for,STATIC_LIBRARIES,libRS,TARGET,)
 librs_generated_headers := \
