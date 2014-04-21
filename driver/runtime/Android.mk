@@ -16,6 +16,8 @@
 
 LOCAL_PATH := $(call my-dir)
 
+LOCAL_STOCK_CLANG := true
+
 # C/LLVM-IR source files for the library
 clcore_base_files := \
     rs_allocation.c \
