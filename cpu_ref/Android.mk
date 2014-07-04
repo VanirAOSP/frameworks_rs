@@ -12,7 +12,6 @@ endif
 
 include $(CLEAR_VARS)
 LOCAL_CLANG := true
-LOCAL_STOCK_CLANG := true
 LOCAL_MODULE := libRSCpuRef
 
 LOCAL_SRC_FILES:= \
