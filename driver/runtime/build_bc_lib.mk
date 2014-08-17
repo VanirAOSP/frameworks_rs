@@ -57,9 +57,15 @@ c_bc_files := $(patsubst %.c,%.bc, \
 ll_bc_files := $(patsubst %.ll,%.bc, \
     $(addprefix $(intermediates)/, $(ll_sources)))
 
+ifeq ($(TARGET_CLANG_VERSION),)
 $(c_bc_files): PRIVATE_INCLUDES := \
     frameworks/rs/scriptc \
     external/clang/lib/Headers
+else
+$(c_bc_files): PRIVATE_INCLUDES := \
+    frameworks/rs/scriptc \
+    $(CLANG_CONFIG_EXTRA_TARGET_C_INCLUDES)
+endif
 $(c_bc_files): PRIVATE_CFLAGS := $(bc_cflags)
 
 $(c_bc_files): $(intermediates)/%.bc: $(LOCAL_PATH)/%.c  $(CLANG)
