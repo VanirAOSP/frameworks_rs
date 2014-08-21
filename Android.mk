@@ -8,9 +8,9 @@ ifeq ($(TARGET_BUILD_PDK), true)
   rs_base_CFLAGS += -D__RS_PDK__
 endif
 
-# If we have msm-3.4 set and we are a cortex-a15, lets assign the snapdragon optimized -mtune=krait2 instead of
+# If we have msm-3.4 or msm-3.5 set and we are a cortex-a15, lets assign the snapdragon optimized -mtune=krait2 instead of
 # -mtune=cortex-a15 since this flag is not supported by clang
-ifeq ($(TARGET_CLANG_VERSION),msm-3.4)
+ifneq (,$(filter $(TARGET_CLANG_VERSION),msm-3.4 msm-3-5))
   ifeq ($(TARGET_ARCH_VARIANT_CPU),cortex-a15)
     CLANG_CFLAGS := -mtune=krait2 -mcpu=krait2
     else
