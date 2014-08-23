@@ -8,6 +8,16 @@ ifeq ($(TARGET_BUILD_PDK), true)
   rs_base_CFLAGS += -D__RS_PDK__
 endif
 
+# If we have msm-3.4 set and we are a cortex-a15, lets assign the snapdragon optimized -mtune=krait2 instead of
+# -mtune=cortex-a15 since this flag is not supported by clang
+ifeq ($(TARGET_CLANG_VERSION),msm-3.4)
+  ifeq ($(TARGET_ARCH_VARIANT_CPU),cortex-a15)
+    CLANG_CFLAGS := -mtune=krait2 -mcpu=krait2
+    else
+    CLANG_CFLAGS :=
+  endif
+endif
+
 ifneq ($(OVERRIDE_RS_DRIVER),)
   rs_base_CFLAGS += -DOVERRIDE_RS_DRIVER=$(OVERRIDE_RS_DRIVER)
 endif
@@ -44,7 +54,7 @@ LOCAL_SHARED_LIBRARIES += libbcc libbcinfo libLLVM libui libgui libsync
 LOCAL_C_INCLUDES += frameworks/compile/libbcc/include
 LOCAL_C_INCLUDES += frameworks/rs/cpu_ref/linkloader/include
 
-LOCAL_CFLAGS += $(rs_base_CFLAGS)
+LOCAL_CFLAGS += $(rs_base_CFLAGS) $(CLANG_CFLAGS)
 
 LOCAL_LDLIBS := -lpthread -ldl
 LOCAL_MODULE_TAGS := optional
@@ -159,7 +169,7 @@ LOCAL_SHARED_LIBRARIES += libft2 libpng libz
 LOCAL_C_INCLUDES += external/freetype/include
 LOCAL_C_INCLUDES += frameworks/compile/libbcc/include
 
-LOCAL_CFLAGS += $(rs_base_CFLAGS)
+LOCAL_CFLAGS += $(rs_base_CFLAGS) $(CLANG_CFLAGS)
 
 LOCAL_LDLIBS := -lpthread -ldl
 LOCAL_MODULE_TAGS := optional
