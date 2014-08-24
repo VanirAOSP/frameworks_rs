@@ -55,16 +55,6 @@ LOCAL_C_INCLUDES += frameworks/rs
 
 LOCAL_CFLAGS += $(rs_base_CFLAGS)
 
-# If we have msm* set and we are a cortex-a15, lets assign the snapdragon optimized -mtune=krait2 instead of
-# -mtune=cortex-a15 since this flag is not supported by clang
-ifneq ($(TARGET_CLANG_VERSION),)
-ifeq ($(filter-out msm%,$(TARGET_CLANG_VERSION)),)
-  ifeq ($(TARGET_ARCH_VARIANT_CPU),cortex-a15)
-    LOCAL_CFLAGS += -mtune=krait2 -mcpu=krait2
-  endif
-endif
-endif
-
 LOCAL_LDLIBS := -lpthread -ldl
 LOCAL_MODULE_TAGS := optional
 
